@@ -39,8 +39,10 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 
 - Create an execution role for the function using `make aws-create-role` adding the resulting Amazon Resource Name (ARN) to your `.env` file.
 
-- Create the function by running `make aws-create-function`
+- Grant the execution role the ability to write logs by running `make aws-attach-log-policy`.
 
-- Test the function by running `make aws-invoke-function`
+- Create the function by running `make aws-create-function`.
+
+- Test the function by running `make aws-invoke-function`.
 
 - To redeploy the function with changes run `make docker-build-tag-push` and `make aws-update-function-code`. Note that updating the code happens asynchronously and it may take a nearly a minute for the changes to be visible.

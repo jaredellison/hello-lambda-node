@@ -36,9 +36,15 @@ aws-create-repository:
 aws-create-role:
 	aws iam create-role \
 		--role-name lambda-ex \
-		--assume-role-policy-document \
 		--profile ${AWS_SSO_PROFILE} \
+		--assume-role-policy-document \
 		'{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+
+aws-attach-log-policy:
+	aws iam attach-role-policy \
+		--role-name lambda-ex \
+		--profile ${AWS_SSO_PROFILE} \
+		--policy arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 
 aws-create-function:
 	aws lambda create-function \
