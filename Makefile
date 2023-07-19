@@ -22,6 +22,8 @@ docker-tag:
 docker-push:
 	docker push ${LATEST_IMAGE_URI}
 
+docker-build-tag-push: docker-build docker-tag docker-push
+
 # ---------------------------------------- #
 # AWS Commands
 # ---------------------------------------- #
@@ -44,6 +46,12 @@ aws-create-function:
 		--package-type Image \
 		--code ImageUri=${LATEST_IMAGE_URI} \
 		--role ${AWS_EXECUTION_ROLE} \
+		--profile ${AWS_SSO_PROFILE} \
+
+aws-update-function-code:
+	aws lambda update-function-code \
+		--function-name ${AWS_FUNCTION_NAME} \
+		--image-uri ${LATEST_IMAGE_URI} \
 		--profile ${AWS_SSO_PROFILE} \
 
 aws-invoke-function:
