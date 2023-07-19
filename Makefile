@@ -1,8 +1,6 @@
 include .env
 export
 
-CONTAINER_IMAGE_NAME := docker-image:test
-
 # ---------------------------------------- #
 # Docker Commands
 # ---------------------------------------- #
@@ -11,10 +9,10 @@ docker-auth:
 	| docker login --username AWS --password-stdin ${AWS_ACCOUNT_NUMBER}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
 docker-build:
-	docker build -t ${CONTAINER_IMAGE_NAME} .
+	docker build -t ${DOCKER_IMAGE_NAME} .
 
 docker-run:
-	docker run -p 9000:8080 ${CONTAINER_IMAGE_NAME}
+	docker run -p 9000:8080 ${DOCKER_IMAGE_NAME}
 
 # ---------------------------------------- #
 # AWS Commands
