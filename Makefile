@@ -14,6 +14,12 @@ docker-build:
 docker-run:
 	docker run -p 9000:8080 ${DOCKER_IMAGE_NAME}
 
+docker-tag:
+	docker tag ${DOCKER_IMAGE_NAME} ${AWS_REPOSITORY_URI}:latest
+
+docker-push:
+	docker push ${AWS_REPOSITORY_URI}:latest
+
 # ---------------------------------------- #
 # AWS Commands
 # ---------------------------------------- #

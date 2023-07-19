@@ -22,4 +22,17 @@ Code based on AWS developer guide: https://docs.aws.amazon.com/lambda/latest/dg/
 
 - Authenticate the Docker CLI. Create a `.env` file based on `.env-example` and run `make docker-auth`.
 
+## Building and pushing an image
+
+- Add a docker image name to your `.env` file and create a docker image using by running `make docker-build`.
+
+- Test that the image runs locally by running `make docker-run` and calling it with:
+
+```bash
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
+{"statusCode":200,"body":"{\"message\":\"hello world\"}"} | jq
+```
+
 - Create a repository for storing docker images by adding a repository name to `.env`, using `make aws-create-repository` and adding the resulting repository uri to `.env`.
+
+- Upload your image to the repository by running `make docker-tag` and `make docker-push`.
