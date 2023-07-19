@@ -38,3 +38,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 - Upload your image to the repository by running `make docker-tag` and `make docker-push`.
 
 - Create an execution role for the function using `make aws-create-role` adding the resulting Amazon Resource Name (ARN) to your `.env` file.
+
+- Create the function by running `make aws-create-function`
+
+- Test the function by running `make aws-invoke-function`
