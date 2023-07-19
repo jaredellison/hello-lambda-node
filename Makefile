@@ -15,3 +15,12 @@ docker-build:
 
 docker-run:
 	docker run -p 9000:8080 ${CONTAINER_IMAGE_NAME}
+
+# ---------------------------------------- #
+# AWS Commands
+# ---------------------------------------- #
+aws-create-repository:
+	aws ecr create-repository --repository-name ${AWS_REPOSITORY_NAME} \
+	--image-scanning-configuration scanOnPush=true \
+	--image-tag-mutability MUTABLE \
+	--profile ${AWS_SSO_PROFILE}

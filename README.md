@@ -2,7 +2,7 @@
 
 Code based on AWS developer guide: https://docs.aws.amazon.com/lambda/latest/dg/typescript-image.html
 
-# Local environment set up
+## Local environment set up
 
 - Create an account with Amazon Web Services
 
@@ -21,3 +21,5 @@ Code based on AWS developer guide: https://docs.aws.amazon.com/lambda/latest/dg/
 - Authenticate the AWS CLI using `aws configure sso`.
 
 - Authenticate the Docker CLI. Create a `.env` file based on `.env-example` and run `make docker-auth`.
+
+- Create a repository for storing docker images by adding a repository name to `.env`, using `make aws-create-repository` and adding the resulting repository uri to `.env`.
