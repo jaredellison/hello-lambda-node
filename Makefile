@@ -28,3 +28,10 @@ aws-create-repository:
 	--image-scanning-configuration scanOnPush=true \
 	--image-tag-mutability MUTABLE \
 	--profile ${AWS_SSO_PROFILE}
+
+aws-create-role:
+	aws iam create-role \
+	--role-name lambda-ex \
+	--assume-role-policy-document \
+	--profile ${AWS_SSO_PROFILE} \
+	'{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
