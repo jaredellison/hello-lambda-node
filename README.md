@@ -22,7 +22,7 @@ Code based on AWS developer guide: https://docs.aws.amazon.com/lambda/latest/dg/
 
 - Authenticate the Docker CLI. Create a `.env` file based on `.env-example` and run `make docker-auth`.
 
-## Building and pushing an image
+## Building and deploying an image
 
 - Add a docker image name to your `.env` file and create a docker image using by running `make docker-build`.
 
@@ -46,3 +46,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 - Test the function by running `make aws-invoke-function`.
 
 - To redeploy the function with changes run `make docker-build-tag-push` and `make aws-update-function-code`. Note that updating the code happens asynchronously and it may take a nearly a minute for the changes to be visible.
+
+## Further Resources
+
+Setting up a public endpoint for the lambda: [docs](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway.html#apigateway-add).
