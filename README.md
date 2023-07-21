@@ -41,7 +41,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 
 - Grant the execution role the ability to write logs by running `make aws-attach-log-policy`.
 
-- Create the function by running `make aws-create-function`.
+- Create the function by running `make aws-create-function`, saving the resulting function uri in `.env`.
 
 - Test the function by running `make aws-invoke-function`.
 
@@ -50,6 +50,28 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 ## Attaching an endpoint for the Lambda
 
 - Create an API Gateway for the Lambda by adding a gateway name to your `.env` file and running `make aws-create-api`. Save the resulting id in `.env` to configure the gateway.
+
+- Create a "stage" for your API by running `make aws-create-stage`, this gives the API a public URL. There can be multiple stages for multiple deployment environments (dev, stg, prd) but we'll use "default" for a single stage.
+
+- Create an "integration" for your API by running `make aws-create-integration` and wave the integration id in your `.env` file, this associates the API Gateway to a lambda function.
+
+- Create a "route" for your API by running `make aws-create-route` this attaches an HTTP verb and path to the public URL.
+
+- Run `make aws-lambda-add-permission` to give the new API Gateway permission to invoke the Lambda function and run `make aws-create-deployment` to deploy the API making it public.
+
+- Test the public endpoint by inserting your API's ID and region then running:
+
+  ```bash
+  curl https://<AWS_GATEWAY_ID>.execute-api.<AWS_REGION>.amazonaws.com/default/hello-world | jq
+  ```
+
+  You should see the message:
+
+  ```json
+  {
+    "message": "hello world 🌎!"
+  }
+  ```
 
 ## Further Resources
 

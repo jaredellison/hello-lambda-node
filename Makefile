@@ -72,3 +72,40 @@ aws-create-api:
 	aws apigatewayv2 create-api --name ${AWS_GATEWAY_NAME} \
 		--protocol-type HTTP \
 		--profile ${AWS_SSO_PROFILE}
+
+aws-create-stage:
+	aws apigatewayv2 create-stage \
+		--api-id ${AWS_GATEWAY_ID} \
+		--stage-name default \
+		--profile ${AWS_SSO_PROFILE}
+
+aws-create-integration:
+	aws apigatewayv2 create-integration \
+		--api-id ${AWS_GATEWAY_ID} \
+		--integration-uri ${AWS_FUNCTION_URI} \
+		--integration-type AWS_PROXY \
+		--payload-format-version 1.0 \
+		--profile ${AWS_SSO_PROFILE}
+
+aws-create-route:
+	aws apigatewayv2 create-route \
+		--api-id ${AWS_GATEWAY_ID} \
+		--route-key 'ANY /hello-world' \
+		--authorization-type NONE \
+		--target integrations/${AWS_GATEWAY_INTEGRATION_ID} \
+		--profile ${AWS_SSO_PROFILE}
+
+aws-lambda-add-permission:
+	aws lambda add-permission \
+		--function-name ${AWS_FUNCTION_NAME} \
+		--statement-id apigateway-invoke-permissions \
+		--action lambda:InvokeFunction \
+		--principal apigateway.amazonaws.com \
+		--source-arn "arn:aws:execute-api:${AWS_REGION}:${AWS_ACCOUNT_NUMBER}:${AWS_GATEWAY_ID}/*/*" \
+		--profile ${AWS_SSO_PROFILE}
+
+aws-create-deployment:
+	aws apigatewayv2 create-deployment \
+		--api-id ${AWS_GATEWAY_ID} \
+		--stage-name default \
+		--profile ${AWS_SSO_PROFILE}
