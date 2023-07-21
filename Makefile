@@ -67,3 +67,8 @@ aws-invoke-function:
 		response.json  \
 	&& cat response.json | jq \
 	&& rm response.json
+
+aws-create-api:
+	aws apigatewayv2 create-api --name ${AWS_GATEWAY_NAME} \
+		--protocol-type HTTP \
+		--profile ${AWS_SSO_PROFILE}
